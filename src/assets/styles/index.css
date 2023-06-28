@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'Tinkoff Sans';
+  src: url('./TinkoffSans-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tinkoff Sans';
+  src: url('../fonts/TinkoffSans-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tinkoff Sans';
+  src: url('../fonts/TinkoffSans-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: 50px auto;
+  min-width: 100vw;
+  min-height: 100vh;
+  font-family: 'Tinkoff Sans';
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement,
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  height: 12px;
+  background: transparent;
+}

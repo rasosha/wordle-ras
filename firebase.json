@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "dist",
+    "site": "wordle-ras",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

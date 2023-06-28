@@ -1,0 +1,17 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  align-self: end;
+  box-shadow: 0 0 5px 1px #000000;
+  background: #212121;
+  color: white;
+  gap: 24px;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}

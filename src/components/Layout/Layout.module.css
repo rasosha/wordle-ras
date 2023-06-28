@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vw;
+  min-height: calc(100vh - 50px);
+  overflow: hidden;
+  background: #212121;
+  color: white;
+  background-image: linear-gradient(to right, #212121c0 0% 100%), url(../../assets/images/pattern-1.svg);
+}
