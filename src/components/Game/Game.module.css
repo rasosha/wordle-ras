@@ -1,15 +1,32 @@
 .gameField {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
   flex-grow: 1;
 }
 
 .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 12px;
   width: 100%;
@@ -17,8 +34,14 @@
 }
 
 .letter {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background: #21212150;
   border: 1px solid #fdde29;
@@ -50,44 +73,93 @@
 .green,
 .yellow,
 .black {
+  -webkit-animation: Flip 0.6s ease-in-out normal;
   animation: Flip 0.6s ease-in-out normal;
 }
 .letter:nth-child(1) {
+  -webkit-animation-delay: 0s;
   animation-delay: 0s;
+  -webkit-transition-delay: 0s;
+  -o-transition-delay: 0s;
   transition-delay: 0s;
 }
 .letter:nth-child(2) {
+  -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
+  -webkit-transition-delay: 0.4s;
+  -o-transition-delay: 0.4s;
   transition-delay: 0.4s;
 }
 .letter:nth-child(3) {
+  -webkit-animation-delay: 0.8s;
   animation-delay: 0.8s;
+  -webkit-transition-delay: 0.8s;
+  -o-transition-delay: 0.8s;
   transition-delay: 0.8s;
 }
 .letter:nth-child(4) {
+  -webkit-animation-delay: 1.2s;
   animation-delay: 1.2s;
+  -webkit-transition-delay: 1.2s;
+  -o-transition-delay: 1.2s;
   transition-delay: 1.2s;
 }
 .letter:nth-child(5) {
+  -webkit-animation-delay: 1.6s;
   animation-delay: 1.6s;
+  -webkit-transition-delay: 1.6s;
+  -o-transition-delay: 1.6s;
   transition-delay: 1.6s;
 }
 
 .error .letter {
+  -webkit-animation: Err 0.5s ease-in-out normal;
   animation: Err 0.5s ease-in-out normal;
 }
 
-@keyframes Flip {
+@-webkit-keyframes Flip {
   0% {
+    -webkit-transform: scaleX(100%);
     transform: scaleX(100%);
     background: transparent;
     border: 1px solid #fdde29;
   }
   50% {
+    -webkit-transform: scaleX(0%);
     transform: scaleX(0%);
   }
   100% {
+    -webkit-transform: scaleX(100%);
     transform: scaleX(100%);
+  }
+}
+
+@keyframes Flip {
+  0% {
+    -webkit-transform: scaleX(100%);
+    transform: scaleX(100%);
+    background: transparent;
+    border: 1px solid #fdde29;
+  }
+  50% {
+    -webkit-transform: scaleX(0%);
+    transform: scaleX(0%);
+  }
+  100% {
+    -webkit-transform: scaleX(100%);
+    transform: scaleX(100%);
+  }
+}
+
+@-webkit-keyframes Blink {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #ffffff10;
+  }
+  100% {
+    background: transparent;
   }
 }
 
@@ -103,31 +175,72 @@
   }
 }
 
-@keyframes Err {
+@-webkit-keyframes Err {
   0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   20% {
+    -webkit-transform: rotate(5deg);
     transform: rotate(5deg);
     color: red;
     border-color: red;
   }
   40% {
+    -webkit-transform: rotate(-5deg);
     transform: rotate(-5deg);
     color: red;
     border-color: red;
   }
   60% {
+    -webkit-transform: rotate(5deg);
     transform: rotate(5deg);
     color: red;
     border-color: red;
   }
   80% {
+    -webkit-transform: rotate(-5deg);
     transform: rotate(-5deg);
     color: red;
     border-color: red;
   }
   100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes Err {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+    color: red;
+    border-color: red;
+  }
+  40% {
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    color: red;
+    border-color: red;
+  }
+  60% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+    color: red;
+    border-color: red;
+  }
+  80% {
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    color: red;
+    border-color: red;
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }

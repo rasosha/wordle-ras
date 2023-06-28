@@ -12,6 +12,7 @@
   height: 42px;
   border-radius: 5px;
   border: thin solid #888;
+  -webkit-box-shadow: 1px 1px 1px grey;
   box-shadow: 1px 1px 1px grey;
   white-space: nowrap;
   padding: 6px 12px 6px 48px;

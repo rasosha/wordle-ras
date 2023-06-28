@@ -5,7 +5,7 @@ import { auth } from '../../firebase';
 import formatData from '../../utils/formatData';
 
 const Message = ({ message, name, photoURL, createdAt, uid }: IMessage) => {
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   return (
     <div className={`${S.message} ${uid === user?.uid ? S.outgoing : S.incoming}`}>

@@ -1,5 +1,9 @@
 .message {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 6px;
   margin: 12px;
@@ -8,21 +12,33 @@
 }
 
 .body {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   padding: 12px;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   gap: 6px;
 }
 
 .outgoing {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
+  -ms-grid-row-align: end;
+  -ms-grid-column-align: end;
   place-self: end;
 }
 
 .outgoing .body {
   background-color: #fedd2c50;
   border-radius: 16px 16px 0 16px;
+  -ms-grid-column-align: end;
   justify-self: end;
   position: relative;
 }
@@ -34,12 +50,14 @@
   bottom: 0;
   right: -12px;
   background-color: #fedd2c50;
+  -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%);
   clip-path: polygon(0 0, 0 100%, 100% 100%);
 }
 
 .incoming .body {
   background-color: #766ac850;
   border-radius: 16px 16px 16px 0;
+  -ms-grid-column-align: start;
   justify-self: start;
   position: relative;
 }
@@ -51,6 +69,7 @@
   bottom: 0;
   left: -12px;
   background-color: #766ac850;
+  -webkit-clip-path: polygon(100% 100%, 0 100%, 100% 0);
   clip-path: polygon(100% 100%, 0 100%, 100% 0);
 }
 
@@ -58,6 +77,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  -ms-flex-item-align: end;
+  -ms-grid-row-align: end;
   align-self: end;
 }
 
@@ -67,14 +88,23 @@
 }
 
 .messageData {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: end;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   gap: 6px;
 }
 
 .messageText {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
   flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-size: 16px;
 }
@@ -82,5 +112,6 @@
 .time {
   font-size: 12px;
   opacity: 0.5;
+  -ms-flex-item-align: end;
   align-self: flex-end;
 }

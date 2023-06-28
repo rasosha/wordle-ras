@@ -23,7 +23,9 @@
 }
 
 #root {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-rows: 50px auto;
   grid-template-rows: 50px auto;
   min-width: 100vw;
   min-height: 100vh;

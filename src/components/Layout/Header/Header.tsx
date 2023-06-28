@@ -2,7 +2,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, NavLink } from 'react-router-dom';
 import { auth } from '../../../firebase';
 import S from './Header.module.css';
-import { HashLoader, PuffLoader } from 'react-spinners';
+import { PuffLoader } from 'react-spinners';
 
 const Header = () => {
   const [user, loading] = useAuthState(auth);
