@@ -27,6 +27,12 @@ const Header = () => {
         >
           Чат
         </NavLink>
+        <NavLink
+          to={'results'}
+          className={({ isActive }) => (isActive ? `${S.link} ${S.active}` : S.link)}
+        >
+          ТОП
+        </NavLink>
       </nav>
       <div className={S.user}>
         {loading ? (

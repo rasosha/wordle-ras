@@ -23,11 +23,18 @@
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: start;
-  width: 33%;
-  margin: 0 16px;
+  margin: 0 0 0 16px;
+}
+
+@media (max-width: 319px) {
+  .logo {
+    display: none;
+  }
 }
 
 .logoImg {
+  max-width: 40px;
+  max-height: 40px;
   width: 40px;
   height: 40px;
   background-image: url('../../../assets/images/logo.png');
@@ -37,7 +44,7 @@
 }
 
 .nav {
-  width: 34%;
+  flex-grow: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -106,8 +113,7 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  width: 33%;
-  margin: 0 16px;
+  margin: 0 16px 0 0;
 }
 
 .loader {

@@ -2,23 +2,45 @@ import { useEffect, useState } from 'react';
 import S from './MainPage.module.css';
 import Game from '../../components/Game';
 import { getRandomWord } from '../../utils/wordsList';
+import formatData from '../../utils/formatData';
+import { auth, getWordOfTheDay } from '../../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { HashLoader } from 'react-spinners';
 
 export type GameState = 'select' | 'game' | 'result';
 export type GameResult = 'loss' | 'win' | '';
 
 export const MainPage = () => {
+  const [user] = useAuthState(auth);
   const [attempts, setAttempts] = useState<string[]>([]);
   const [gameState, setGameState] = useState('select');
   const [gameResult, setGameResult] = useState('');
-  const [word, setWord] = useState(getRandomWord());
+  const [word, setWord] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const newGame = () => {
+  // checkWord('2023.06.28', 'булка');
+
+  const startTrain = () => {
     const newWord = getRandomWord();
     setWord(newWord);
     console.log('newWord :>> ', newWord);
-    setGameState('game');
+    setGameState('train');
     setGameResult('');
     setAttempts([]);
+  };
+
+  const startWordOfTheDay = () => {
+    setIsLoading(true);
+    const testDate = formatData('date', Date.now()) || '1992.10.10';
+    const getWord = async () => await getWordOfTheDay(testDate.toString());
+    getWord().then((answer) => {
+      setWord(answer);
+      console.log('answer :>> ', answer);
+      setGameState('wordOfTheDay');
+      setGameResult('');
+      setAttempts([]);
+      setIsLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -36,6 +58,11 @@ export const MainPage = () => {
 
   return (
     <main className={S.main}>
+      {isLoading && (
+        <section className={S.loader}>
+          <HashLoader color="#fedd2c" />
+        </section>
+      )}
       {gameResult && (
         <section className={S.result}>
           {gameResult === 'win' && (
@@ -52,18 +79,12 @@ export const MainPage = () => {
               <div className={S.buttons}>
                 <button
                   className={S.button}
-                  onClick={() => newGame()}
-                >
-                  Играть снова!
-                </button>
-                <button
-                  className={S.button}
                   onClick={() => {
                     setGameState('select');
                     setGameResult('');
                   }}
                 >
-                  В меню.
+                  OK!
                 </button>
               </div>
             </>
@@ -76,18 +97,12 @@ export const MainPage = () => {
               <div className={S.buttons}>
                 <button
                   className={S.button}
-                  onClick={() => newGame()}
-                >
-                  Играть снова!
-                </button>
-                <button
-                  className={S.button}
                   onClick={() => {
                     setGameState('select');
                     setGameResult('');
                   }}
                 >
-                  В меню.
+                  OK!
                 </button>
               </div>
             </>
@@ -98,23 +113,26 @@ export const MainPage = () => {
         <div className={S.buttons}>
           <button
             className={S.button}
-            onClick={() => newGame()}
+            onClick={() => startTrain()}
           >
             Случайное слово
           </button>
           <button
             className={S.button}
-            disabled
+            disabled={!user}
+            title={!user ? 'Доступно только авторизованным пользователям' : ''}
+            onClick={() => startWordOfTheDay()}
           >
-            Слово дня (будет позже)
+            Слово дня
           </button>
         </div>
       )}
 
-      {gameState === 'game' && (
+      {(gameState === 'train' || gameState === 'wordOfTheDay') && (
         <Game
           key={word}
           answer={word}
+          gameState={gameState}
           attempts={attempts}
           setAttempts={setAttempts}
         />

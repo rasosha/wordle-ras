@@ -5,8 +5,10 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { getFirestore, collection, getDocs, addDoc, query, where, setDoc, doc, limit, orderBy } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, addDoc, query, where, setDoc, doc, limit, orderBy, getDoc } from 'firebase/firestore';
 import { IMessage } from './types';
+import { IResults } from './pages/ResultsPage/ResultsPage';
+import { getRandomWord } from './utils/wordsList';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
@@ -70,6 +72,65 @@ const handleError = (err: FirebaseError) => {
   throw errorCode;
 };
 
+const getWordOfTheDay = async (date: string) => {
+  const docRef = doc(db, "words", date);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data().answer;
+  } else {
+    const word = getRandomWord()
+    await setDoc(doc(db, "words", date), {
+      answer: word,
+      date: date,
+    })
+    console.log(word, 'added', date)
+    return word
+  }
+}
+// const checkWord = async (date: string, word: string) => {
+//   const words = await getDocs(collection(db, "words"));
+//   const data = words.docs.map((docs) => docs.data())
+//   if (data.find((dataItem) => dataItem.date === date)) {
+//     console.log('date :>> ', data.find((dataItem) => dataItem.date === date)!.answer);
+//   } else {
+//     await setDoc(doc(db, "words", date), {
+//       answer: word,
+//       date: date,
+//     })
+//     console.log(word, 'added', date)
+//   }
+// }
+
+const sendAttempt = async (uid: string, date: string, attempts: string[], attemptsColors: string[], name: string, photoURL: string) => {
+  await setDoc(doc(db, "words", date, 'users', uid,), {
+    uid,
+    date,
+    attempts,
+    attemptsColors,
+    name,
+    photoURL,
+  });
+}
+
+const getAttempts = async (date: string, uid: string) => {
+  const q = query(collection(db, "words", date, 'users'), where("uid", "==", uid));
+  const querySnapshot = await getDocs(q);
+  const data = querySnapshot.docs.map((docs) => docs.data())
+  if (data[0]) {
+    return data[0]
+  } else return null
+}
+
+const getResults = async (date: string) => {
+  const q = query(collection(db, "words", date, 'users'));
+  const querySnapshot = await getDocs(q);
+  const data = querySnapshot.docs.map((docs) => docs.data())
+  console.log(data)
+  if (data) {
+    return data as IResults[]
+  } else return null
+}
+
 export {
   auth,
   db,
@@ -77,4 +138,8 @@ export {
   logout,
   sendMessage,
   getMessages,
+  getWordOfTheDay,
+  sendAttempt,
+  getAttempts,
+  getResults,
 };

@@ -3,7 +3,8 @@
   display: -ms-flexbox;
   display: flex;
   max-width: 576px;
-  max-height: 50%;
+  /* max-height: 50%; */
+  margin-top: 12px;
   width: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -18,6 +19,16 @@
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #212121;
 }
 
 .row {
@@ -192,8 +203,8 @@
     margin: 0;
   }
   .letter {
-    width: 5vh;
-    height: 5vh;
+    max-width: 64px;
+    max-height: 64px;
     font-size: 1em;
     border-radius: 0.5em;
   }

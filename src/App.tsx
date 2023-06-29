@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import ErrorPage from './pages/ErrorPage';
 import AuthPage from './pages/AuthPage';
 import ChatPage from './pages/ChatPage';
+import ResultsPage from './pages/ResultsPage';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'chat',
         element: <ChatPage />,
+      },
+      {
+        path: 'results',
+        element: <ResultsPage />,
       },
       {
         path: '*',

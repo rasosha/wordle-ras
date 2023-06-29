@@ -18,7 +18,7 @@ const Message = ({ message, name, photoURL, createdAt, uid }: IMessage) => {
         <p className={S.name}>{name}</p>
         <div className={S.messageData}>
           <p className={S.messageText}>{message}</p>
-          <p className={S.time}>{createdAt && formatData(createdAt)}</p>
+          <p className={S.time}>{createdAt && formatData('time', createdAt)}</p>
         </div>
       </div>
     </div>
