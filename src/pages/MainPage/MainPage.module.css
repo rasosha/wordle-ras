@@ -95,3 +95,8 @@
 .description {
   text-align: center;
 }
+
+.link {
+  text-decoration: underline;
+  color: #fff;
+}

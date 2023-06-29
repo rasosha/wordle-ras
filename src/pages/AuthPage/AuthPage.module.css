@@ -7,6 +7,13 @@
   align-items: center;
 }
 
+.btns {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
 .logOutBtn {
   padding: 6px 12px;
   width: 220px;

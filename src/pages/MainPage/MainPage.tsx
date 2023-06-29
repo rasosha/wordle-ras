@@ -119,9 +119,22 @@ export const MainPage = () => {
           >
             Слово дня
           </button>
-          <p className={S.description}>
-            Одно слово для всех. <br /> Обновляется раз в день.
-          </p>
+          {user ? (
+            <p className={S.description}>
+              Одно слово для всех. <br /> Обновляется раз в день.
+            </p>
+          ) : (
+            <p className={S.description}>
+              Доступно только авторизованным пользователям. <br />{' '}
+              <a
+                href="/auth"
+                className={S.link}
+              >
+                Авторизоваться
+              </a>
+            </p>
+          )}
+
           <button
             className={S.button}
             onClick={() => startTrain()}
