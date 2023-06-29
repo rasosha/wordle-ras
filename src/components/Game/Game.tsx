@@ -3,11 +3,11 @@ import { doesWordExists } from '../../utils/wordsCheck';
 import attemptCheck from '../../utils/attemptCheck';
 import S from './Game.module.css';
 import Keyboard from '../Keyboard';
-import getLetterClassName from '../../utils/getLetterClassName';
 import { auth, getAttempts, sendAttempt } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import formatData from '../../utils/formatData';
 import { HashLoader } from 'react-spinners';
+import GameField from '../GameField';
 
 interface GameProps {
   answer: string;
@@ -22,7 +22,7 @@ export const Game = ({ answer, attempts, setAttempts, gameState }: GameProps) =>
   const [greenKeys, setGreenKeys] = useState<Set<string>>(new Set());
   const [yellowKeys, setYellowKeys] = useState<Set<string>>(new Set());
   const [blackKeys, setBlackKeys] = useState<Set<string>>(new Set());
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [user] = useAuthState(auth);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -70,9 +70,9 @@ export const Game = ({ answer, attempts, setAttempts, gameState }: GameProps) =>
       }
     } else {
       console.log(`${word} does not exist, try another`);
-      setError(true);
+      setIsError(true);
       setTimeout(() => {
-        setError(false);
+        setIsError(false);
       }, 500);
     }
   };
@@ -87,25 +87,12 @@ export const Game = ({ answer, attempts, setAttempts, gameState }: GameProps) =>
           <HashLoader color="#fedd2c" />
         </div>
       )}
-      <section className={S.gameField}>
-        {attemptsArray.map((word: string, wordIndex: number) => (
-          <div
-            className={`${S.row}${error && wordIndex === attempts.length ? ` ${S.error}` : ''}`}
-            key={wordIndex}
-          >
-            {word.split('').map((letter: string, letterIndex: number) => (
-              <p
-                className={
-                  attemptsColors[wordIndex] ? getLetterClassName(attemptsColors[wordIndex], letterIndex) : `${S.letter}`
-                }
-                key={letterIndex}
-              >
-                {letter}
-              </p>
-            ))}
-          </div>
-        ))}
-      </section>
+      <GameField
+        attemptsArray={attemptsArray}
+        attemptsColors={attemptsColors}
+        isError={isError}
+        animate={true}
+      />
       <Keyboard
         inputValue={inputValue}
         setInputValue={setInputValue}
@@ -115,7 +102,7 @@ export const Game = ({ answer, attempts, setAttempts, gameState }: GameProps) =>
           yellowSet: yellowKeys,
           blackSet: blackKeys,
         }}
-        isError={error || attempts.length === 6}
+        isError={isError || attempts.length === 6}
       />
     </>
   );

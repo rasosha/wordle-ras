@@ -3,6 +3,7 @@ import { getResults } from '../../firebase';
 import S from './ResultsPage.module.css';
 import { useEffect, useState } from 'react';
 import formatData from '../../utils/formatData';
+import GameField from '../../components/GameField';
 
 export interface IResults {
   attempts: string[];
@@ -16,6 +17,7 @@ export interface IResults {
 export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<IResults[]>([]);
+  const [showResult, setShowResult] = useState<string>('');
 
   useEffect(() => {
     if (!isLoading) {
@@ -35,20 +37,40 @@ export const ResultsPage = () => {
       };
       att();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <main className={S.main}>
-      {isLoading ? (
-        <GridLoader color="#fedd2c" />
-      ) : (
+      {isLoading && <GridLoader color="#fedd2c" />}
+      {!isLoading && showResult && (
+        <section className={S.result}>
+          <div className={S.gameField}>
+            {results
+              .filter((res) => res.uid === showResult)
+              .map((res) => (
+                <GameField
+                  attemptsArray={[...res.attempts, ...new Array(6 - res.attempts.length).fill('     ')]}
+                  attemptsColors={res.attemptsColors}
+                />
+              ))}
+          </div>
+          <button
+            className={S.closeBtn}
+            onClick={() => setShowResult('')}
+          >
+            Закрыть
+          </button>
+        </section>
+      )}
+      {!isLoading && !showResult && (
         <section className={S.results}>
           {results.map((result, index) => (
             <div
               className={S.row}
               key={index}
               title={result.attempts.toString()}
+              onClick={() => setShowResult(result.uid)}
             >
               <div className={S.image}>
                 <div className={S.position}>

@@ -113,18 +113,22 @@ export const MainPage = () => {
         <div className={S.buttons}>
           <button
             className={S.button}
-            onClick={() => startTrain()}
-          >
-            Случайное слово
-          </button>
-          <button
-            className={S.button}
             disabled={!user}
             title={!user ? 'Доступно только авторизованным пользователям' : ''}
             onClick={() => startWordOfTheDay()}
           >
             Слово дня
           </button>
+          <p className={S.description}>
+            Одно слово для всех. <br /> Обновляется раз в день.
+          </p>
+          <button
+            className={S.button}
+            onClick={() => startTrain()}
+          >
+            Тренировка
+          </button>
+          <p className={S.description}>Количество игр неограничено. </p>
         </div>
       )}
 

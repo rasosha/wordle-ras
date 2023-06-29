@@ -1,4 +1,4 @@
-import S from '../components/Game/Game.module.css'
+import S from '../components/GameField/GameField.module.css'
 
 const getLetterClassName = (attemptsColors: string, index: number) => {
   if (attemptsColors[index] === '+') {
