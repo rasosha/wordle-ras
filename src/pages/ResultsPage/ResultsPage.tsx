@@ -54,13 +54,13 @@ export const ResultsPage = () => {
                   attemptsColors={res.attemptsColors}
                 />
               ))}
+            <button
+              className={S.closeBtn}
+              onClick={() => setShowResult('')}
+            >
+              Закрыть
+            </button>
           </div>
-          <button
-            className={S.closeBtn}
-            onClick={() => setShowResult('')}
-          >
-            Закрыть
-          </button>
         </section>
       )}
       {!isLoading && !showResult && (
