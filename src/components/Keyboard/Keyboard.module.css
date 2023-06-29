@@ -14,6 +14,9 @@
   -ms-flex-align: center;
   align-items: center;
   gap: 12px;
+  max-width: 576px;
+  width: calc(100% - 48px);
+  margin: 24px;
 }
 
 .row1,
@@ -104,6 +107,7 @@
 @media (max-width: 576px) {
   .keyboard {
     width: 100%;
+    margin: 0 0 24px 0;
   }
   .row1,
   .row2,
