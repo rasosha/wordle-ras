@@ -49,21 +49,23 @@ export const MainPage = () => {
                   ? ` ${attempts.length} хода`
                   : ` ${attempts.length} ходов`}{' '}
               </p>
-              <button
-                className={S.button}
-                onClick={() => newGame()}
-              >
-                Играть снова!
-              </button>
-              <button
-                className={S.button}
-                onClick={() => {
-                  setGameState('select');
-                  setGameResult('');
-                }}
-              >
-                В меню.
-              </button>
+              <div className={S.buttons}>
+                <button
+                  className={S.button}
+                  onClick={() => newGame()}
+                >
+                  Играть снова!
+                </button>
+                <button
+                  className={S.button}
+                  onClick={() => {
+                    setGameState('select');
+                    setGameResult('');
+                  }}
+                >
+                  В меню.
+                </button>
+              </div>
             </>
           )}
 
@@ -71,27 +73,29 @@ export const MainPage = () => {
             <>
               <p>Не повезло.</p>
               <p>{`Было загадано слово ${word}`}</p>
-              <button
-                className={S.button}
-                onClick={() => newGame()}
-              >
-                Играть снова!
-              </button>
-              <button
-                className={S.button}
-                onClick={() => {
-                  setGameState('select');
-                  setGameResult('');
-                }}
-              >
-                В меню.
-              </button>
+              <div className={S.buttons}>
+                <button
+                  className={S.button}
+                  onClick={() => newGame()}
+                >
+                  Играть снова!
+                </button>
+                <button
+                  className={S.button}
+                  onClick={() => {
+                    setGameState('select');
+                    setGameResult('');
+                  }}
+                >
+                  В меню.
+                </button>
+              </div>
             </>
           )}
         </section>
       )}
       {gameState === 'select' && (
-        <>
+        <div className={S.buttons}>
           <button
             className={S.button}
             onClick={() => newGame()}
@@ -104,7 +108,7 @@ export const MainPage = () => {
           >
             Слово дня (будет позже)
           </button>
-        </>
+        </div>
       )}
 
       {gameState === 'game' && (

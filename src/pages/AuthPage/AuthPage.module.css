@@ -1,3 +1,12 @@
+.main {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .logOutBtn {
   padding: 6px 12px;
   width: 220px;

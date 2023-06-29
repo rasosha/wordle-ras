@@ -49,59 +49,65 @@ export const ChatPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return !chatHistory && isLoading ? (
-    <div className={S.loaderMsgs}>
-      <HashLoader color="#fedd2c" />
-    </div>
-  ) : (
-    <section className={S.chat}>
-      <div className={S.chatHistory}>
-        {chatHistory?.length &&
-          chatHistory.map((msg) => (
-            <Message
-              message={msg.message}
-              name={msg.name}
-              uid={msg.uid}
-              photoURL={msg.photoURL}
-              createdAt={msg.createdAt}
-              key={msg.createdAt}
-            />
-          ))}
-      </div>
-      {user ? (
-        <form
-          onSubmit={handleSubmit}
-          className={S.form}
-        >
-          <input
-            className={S.input}
-            type="text"
-            placeholder="Ваше сообщение"
-            value={inputValue}
-            onChange={handleInput}
-            disabled={isSending || !user}
-          />
-          <button
-            className={S.sendBtn}
-            disabled={isSending || !user}
-          >
-            {'>'}
-          </button>
-          <div className={S.loader}>
-            {isSending && (
-              <BarLoader
-                width="100%"
-                height="10px"
-                color="#fedd2c"
-              />
-            )}
-          </div>
-        </form>
-      ) : (
-        <div className={S.form}>
-          <p className={S.warning}>Чтобы написать сообщение, неоходимо авторизоваться.</p>
+  return (
+    <main className={S.main}>
+      {!chatHistory && isLoading ? (
+        <div className={S.loaderMsgs}>
+          <HashLoader color="#fedd2c" />
         </div>
+      ) : (
+        <>
+          <section className={S.chatSection}>
+            {chatHistory?.length &&
+              chatHistory.map((msg) => (
+                <Message
+                  message={msg.message}
+                  name={msg.name}
+                  uid={msg.uid}
+                  photoURL={msg.photoURL}
+                  createdAt={msg.createdAt}
+                  key={msg.createdAt}
+                />
+              ))}
+          </section>
+          {user ? (
+            <section className={S.inputSection}>
+              <form
+                onSubmit={handleSubmit}
+                className={S.form}
+              >
+                <input
+                  className={S.input}
+                  type="text"
+                  placeholder="Ваше сообщение"
+                  value={inputValue}
+                  onChange={handleInput}
+                  disabled={isSending || !user}
+                />
+                <button
+                  className={S.sendBtn}
+                  disabled={isSending || !user}
+                >
+                  {'>'}
+                </button>
+                <div className={S.loader}>
+                  {isSending && (
+                    <BarLoader
+                      width="100%"
+                      height="10px"
+                      color="#fedd2c"
+                    />
+                  )}
+                </div>
+              </form>
+            </section>
+          ) : (
+            <section className={S.form}>
+              <p className={S.warning}>Чтобы написать сообщение, неоходимо авторизоваться.</p>
+            </section>
+          )}
+        </>
       )}
-    </section>
+    </main>
   );
 };

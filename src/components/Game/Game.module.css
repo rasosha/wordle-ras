@@ -2,6 +2,8 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  max-width: 576px;
+  max-height: 50%;
   width: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -44,6 +46,7 @@
   -ms-flex-align: center;
   align-items: center;
   background: #21212150;
+  color: #fff;
   border: 1px solid #fdde29;
   border-radius: 12px;
   width: 15vw;
@@ -117,52 +120,24 @@
   animation: Err 0.5s ease-in-out normal;
 }
 
-@-webkit-keyframes Flip {
-  0% {
-    -webkit-transform: scaleX(100%);
-    transform: scaleX(100%);
-    background: transparent;
-    border: 1px solid #fdde29;
-  }
-  50% {
-    -webkit-transform: scaleX(0%);
-    transform: scaleX(0%);
-  }
-  100% {
-    -webkit-transform: scaleX(100%);
-    transform: scaleX(100%);
-  }
-}
-
 @keyframes Flip {
   0% {
-    -webkit-transform: scaleX(100%);
     transform: scaleX(100%);
-    background: transparent;
+    background: #21212150;
+    color: #fff;
     border: 1px solid #fdde29;
   }
   50% {
     -webkit-transform: scaleX(0%);
     transform: scaleX(0%);
+    background: #21212150;
+    color: #fff;
+    border: 1px solid #fdde29;
   }
   100% {
-    -webkit-transform: scaleX(100%);
     transform: scaleX(100%);
   }
 }
-
-@-webkit-keyframes Blink {
-  0% {
-    background: transparent;
-  }
-  50% {
-    background: #ffffff10;
-  }
-  100% {
-    background: transparent;
-  }
-}
-
 @keyframes Blink {
   0% {
     background: transparent;
@@ -175,72 +150,51 @@
   }
 }
 
-@-webkit-keyframes Err {
+@keyframes Err {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   20% {
-    -webkit-transform: rotate(5deg);
     transform: rotate(5deg);
     color: red;
     border-color: red;
   }
   40% {
-    -webkit-transform: rotate(-5deg);
     transform: rotate(-5deg);
     color: red;
     border-color: red;
   }
   60% {
-    -webkit-transform: rotate(5deg);
     transform: rotate(5deg);
     color: red;
     border-color: red;
   }
   80% {
-    -webkit-transform: rotate(-5deg);
     transform: rotate(-5deg);
     color: red;
     border-color: red;
   }
   100% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
 
-@keyframes Err {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+@media (max-width: 400px) {
+  .main {
+    gap: 0;
+    justify-content: space-evenly;
   }
-  20% {
-    -webkit-transform: rotate(5deg);
-    transform: rotate(5deg);
-    color: red;
-    border-color: red;
+  .gameField {
+    gap: 0.5em;
   }
-  40% {
-    -webkit-transform: rotate(-5deg);
-    transform: rotate(-5deg);
-    color: red;
-    border-color: red;
+  .row {
+    gap: 0.5em;
+    margin: 0;
   }
-  60% {
-    -webkit-transform: rotate(5deg);
-    transform: rotate(5deg);
-    color: red;
-    border-color: red;
-  }
-  80% {
-    -webkit-transform: rotate(-5deg);
-    transform: rotate(-5deg);
-    color: red;
-    border-color: red;
-  }
-  100% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+  .letter {
+    width: 5vh;
+    height: 5vh;
+    font-size: 1em;
+    border-radius: 0.5em;
   }
 }

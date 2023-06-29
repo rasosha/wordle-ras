@@ -11,11 +11,7 @@ export const AuthPage = () => {
   // }, [user, loading]);
 
   return (
-    <main
-      style={{
-        margin: '20px',
-      }}
-    >
+    <main className={S.main}>
       {loading ? (
         <BarLoader
           width="100%"
