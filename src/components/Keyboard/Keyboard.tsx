@@ -7,14 +7,11 @@ const letters = ['ЙЦУКЕНГШЩЗХЪ', 'ФЫВАПРОЛДЖЭ', 'ЯЧСМ
 export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors, isError }: KeyboardProps) => {
   const handleClick = (char: string) => {
     if (char === letters[4]) {
-      // console.log('delete');
       setInputValue(inputValue.slice(0, inputValue.length - 1));
     } else if (char === letters[3]) {
-      // console.log('submit');
       submitAttempt(inputValue);
     } else {
       setInputValue(inputValue + char);
-      // console.log('char :>> ', char);
     }
   };
 

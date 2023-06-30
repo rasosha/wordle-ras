@@ -37,6 +37,12 @@ export const Game = ({ answer, attempts, setAttempts, gameState }: GameProps) =>
             console.log('res :>> ', res.attempts);
             setAttempts(res.attempts);
             setAttemptsColors(res.attemptsColors);
+            setGreenKeys(res.charColors.greenSet);
+            setYellowKeys(res.charColors.yellowSet);
+            setBlackKeys(res.charColors.blackSet);
+            setGreenKeys(new Set([...res.charColors.greenSet]));
+            setYellowKeys(new Set([...res.charColors.yellowSet]));
+            setBlackKeys(new Set([...res.charColors.blackSet]));
           }
           setIsLoading(false);
         }
@@ -63,6 +69,11 @@ export const Game = ({ answer, attempts, setAttempts, gameState }: GameProps) =>
             date,
             [...attempts, check.attempt.word.toUpperCase()],
             [...attemptsColors, check.attempt.check.join('')],
+            {
+              greenSet: new Set([...greenKeys, ...check.colors.green]),
+              yellowSet: new Set([...yellowKeys, ...check.colors.yellow]),
+              blackSet: new Set([...blackKeys, ...check.colors.black]),
+            },
             user.displayName || user.email || user.uid,
             user.photoURL || './default.png',
           );

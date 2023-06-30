@@ -2,7 +2,7 @@ import { GridLoader } from 'react-spinners';
 import { auth, logout, signInWithGoogle } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import S from './AuthPage.module.css';
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthPage = () => {
   const [user, loading] = useAuthState(auth);

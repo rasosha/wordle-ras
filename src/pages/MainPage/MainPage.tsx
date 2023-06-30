@@ -18,8 +18,6 @@ export const MainPage = () => {
   const [word, setWord] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // checkWord('2023.06.28', 'булка');
-
   const startTrain = () => {
     const newWord = getRandomWord();
     setWord(newWord);

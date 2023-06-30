@@ -6,7 +6,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, collection, getDocs, addDoc, query, where, setDoc, doc, limit, orderBy, getDoc } from 'firebase/firestore';
-import { IMessage } from './types';
+import { ColorSets, IMessage } from './types';
 import { IResults } from './pages/ResultsPage/ResultsPage';
 import { getRandomWord } from './utils/wordsList';
 
@@ -87,26 +87,19 @@ const getWordOfTheDay = async (date: string) => {
     return word
   }
 }
-// const checkWord = async (date: string, word: string) => {
-//   const words = await getDocs(collection(db, "words"));
-//   const data = words.docs.map((docs) => docs.data())
-//   if (data.find((dataItem) => dataItem.date === date)) {
-//     console.log('date :>> ', data.find((dataItem) => dataItem.date === date)!.answer);
-//   } else {
-//     await setDoc(doc(db, "words", date), {
-//       answer: word,
-//       date: date,
-//     })
-//     console.log(word, 'added', date)
-//   }
-// }
 
-const sendAttempt = async (uid: string, date: string, attempts: string[], attemptsColors: string[], name: string, photoURL: string) => {
+
+const sendAttempt = async (uid: string, date: string, attempts: string[], attemptsColors: string[], charColors: ColorSets, name: string, photoURL: string) => {
   await setDoc(doc(db, "words", date, 'users', uid,), {
     uid,
     date,
     attempts,
     attemptsColors,
+    charColors: {
+      greenSet: [...charColors.greenSet],
+      yellowSet: [...charColors.yellowSet],
+      blackSet: [...charColors.blackSet],
+    },
     name,
     photoURL,
   });

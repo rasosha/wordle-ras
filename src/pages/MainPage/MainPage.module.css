@@ -2,15 +2,8 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: space-evenly;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+  justify-content: center;
   align-items: center;
   gap: 24px;
   overflow: auto;
@@ -80,7 +73,6 @@
   height: 42px;
   border-radius: 5px;
   border: thin solid #888;
-  -webkit-box-shadow: 1px 1px 1px grey;
   box-shadow: 1px 1px 1px grey;
   white-space: nowrap;
   padding: 6px 12px;
