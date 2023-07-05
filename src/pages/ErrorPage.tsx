@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { getUserInfo } from '../firebase';
 
 export const ErrorPage = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ export const ErrorPage = () => {
       >
         На стартовую страницу
       </button>
+
+      <button onClick={() => getUserInfo('eNZh5B2jZIcdZeKwS5fPlOYHqKk2')}>test</button>
     </main>
   );
 };

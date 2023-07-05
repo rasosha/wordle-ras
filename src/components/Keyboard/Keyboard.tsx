@@ -4,7 +4,7 @@ import S from './Keyboard.module.css';
 
 const letters = ['ЙЦУКЕНГШЩЗХЪ', 'ФЫВАПРОЛДЖЭ', 'ЯЧСМИТЬБЮ', '✓', '⌫'];
 
-export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors, isError }: KeyboardProps) => {
+export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors, disabled }: KeyboardProps) => {
   const handleClick = (char: string) => {
     if (char === letters[4]) {
       setInputValue(inputValue.slice(0, inputValue.length - 1));
@@ -23,7 +23,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
             <button
               key={index}
               className={getKeyClassName(charColors, char.toLowerCase())}
-              disabled={inputValue.length === 5 || isError}
+              disabled={inputValue.length === 5 || disabled}
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
             >
               {char}
@@ -37,7 +37,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
             <button
               key={index}
               className={getKeyClassName(charColors, char.toLowerCase())}
-              disabled={inputValue.length === 5 || isError}
+              disabled={inputValue.length === 5 || disabled}
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
             >
               {char}
@@ -48,7 +48,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
       <div className={S.row3}>
         <button
           className={S.special}
-          disabled={inputValue.length !== 5 || isError}
+          disabled={inputValue.length !== 5 || disabled}
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
         >
           {letters[3]}
@@ -58,7 +58,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
             <button
               key={index}
               className={getKeyClassName(charColors, char.toLowerCase())}
-              disabled={inputValue.length === 5 || isError}
+              disabled={inputValue.length === 5 || disabled}
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
             >
               {char}
@@ -67,7 +67,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
         })}
         <button
           className={S.special}
-          disabled={inputValue.length === 0 || isError}
+          disabled={inputValue.length === 0 || disabled}
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
         >
           {letters[4]}

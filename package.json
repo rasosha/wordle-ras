@@ -13,6 +13,10 @@
     "deploy": "vite build && firebase deploy --only hosting"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.6",
     "firebase": "^9.23.0",
     "gh-pages": "^5.0.0",
     "i18next": "^23.2.0",
@@ -22,7 +26,6 @@
     "react-i18next": "^13.0.0",
     "react-router-dom": "^6.13.0",
     "react-spinners": "^0.13.8",
-    "styled-components": "^6.0.0-rc.6",
     "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {

@@ -16,5 +16,19 @@ export interface KeyboardProps {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   submitAttempt: (inputValue: string) => void;
   charColors: ColorSets;
-  isError: boolean
+  disabled: boolean
+}
+
+export interface GameFieldProps {
+  attemptsArray: string[];
+  attemptsColors: string[];
+  isError?: boolean;
+  animate?: boolean;
+}
+
+export interface GameResultProps {
+  result: 'win' | 'loss' | '';
+  count?: number;
+  answer?: string;
+  ref?: HTMLElement
 }

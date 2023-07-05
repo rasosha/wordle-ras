@@ -5,9 +5,9 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { getFirestore, collection, getDocs, addDoc, query, where, setDoc, doc, limit, orderBy, getDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, where, setDoc, doc, limit, orderBy, getDoc, updateDoc } from 'firebase/firestore';
 import { ColorSets, IMessage } from './types';
-import { IResults } from './pages/ResultsPage/ResultsPage';
+import { IResults } from './pages/ResultsPage';
 import { getRandomWord } from './utils/wordsList';
 
 const firebaseConfig = {
@@ -31,17 +31,23 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+      await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
         email: user.email,
+        image: user.photoURL,
       });
     }
   } catch (err) {
     handleError(err as FirebaseError);
   }
 };
+
+const getUserInfo = async (uid: string) => {
+  const user = await getDoc(doc(db, "users", uid));
+  return (user.data())
+}
 
 const sendMessage = async (uid: string, message: string, name: string, photoURL: string) => {
   await setDoc(doc(db, "chat", Date.now().toString()), {
@@ -76,7 +82,7 @@ const getWordOfTheDay = async (date: string) => {
   const docRef = doc(db, "words", date);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    return docSnap.data().answer;
+    return docSnap.data().answer as string;
   } else {
     const word = getRandomWord()
     await setDoc(doc(db, "words", date), {
@@ -124,6 +130,15 @@ const getResults = async (date: string) => {
   } else return null
 }
 
+
+const setField = async (date: string, uid: string, field: string, fieldData: string) => {
+  const document = doc(db, "words", date, 'users', uid,)
+  await updateDoc(document, {
+    [field]: fieldData
+  })
+}
+
+
 export {
   auth,
   db,
@@ -135,4 +150,6 @@ export {
   sendAttempt,
   getAttempts,
   getResults,
+  setField,
+  getUserInfo,
 };

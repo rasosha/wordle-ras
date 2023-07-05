@@ -78,6 +78,7 @@
 
 .special:disabled {
   background: #333;
+  opacity: 0.5;
 }
 
 .green {

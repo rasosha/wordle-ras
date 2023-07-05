@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Tinkoff Sans';
-  src: url('../TinkoffSans-Bold.ttf');
+  src: url('../fonts/TinkoffSans-Bold.ttf');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -23,12 +23,6 @@
 }
 
 #root {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 50px auto;
-  grid-template-rows: 50px auto;
-  min-width: 100vw;
-  min-height: 100vh;
   font-family: 'Tinkoff Sans';
   background: #212121;
   background-image: linear-gradient(to right, #212121c0 0% 100%), url(../../assets/images/pattern-1.svg);
