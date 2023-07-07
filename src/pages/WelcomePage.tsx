@@ -22,14 +22,14 @@ const Li = styled.li`
 
 export const WelcomePage = () => (
   <Box
-    maxWidth="sm"
     sx={{
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      padding: '24px',
+      justifyContent: { xs: 'start', sm: 'start', md: 'center' },
+      padding: { xs: '6px', sm: '12px', md: '24px' },
       gap: '12px',
+      maxWidth: '600px',
     }}
   >
     <Typography

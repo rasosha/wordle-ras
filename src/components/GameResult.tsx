@@ -1,12 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import { GameResultProps } from '../types';
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import winJpg from '../assets/images/win.jpg';
 import lossJpg from '../assets/images/loss.jpg';
 
-export const GameResult = ({ result, count = 0, answer }: GameResultProps) => {
-  const navigate = useNavigate();
-
+export const GameResult = ({ result, count = 0, answer, setGameResult }: GameResultProps) => {
   return (
     <Card>
       <CardMedia
@@ -29,13 +26,13 @@ export const GameResult = ({ result, count = 0, answer }: GameResultProps) => {
         >
           {result === 'win'
             ? `Победа за ${count === 1 ? ` 1 ход` : count < 5 ? ` ${count} хода` : ` ${count} ходов.`}`
-            : `Было загадано слово ${answer?.toUpperCase()}`}
+            : `Было загадано слово ${answer}`}
         </Typography>
       </CardContent>
       <CardActions>
         <Button
           onClick={() => {
-            navigate('/game');
+            setGameResult && setGameResult('');
           }}
         >
           {result === 'win' ? 'Отлично' : 'В меню'}

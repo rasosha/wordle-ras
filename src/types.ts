@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface IMessage {
   uid: string;
   message: string;
@@ -24,11 +26,17 @@ export interface GameFieldProps {
   attemptsColors: string[];
   isError?: boolean;
   animate?: boolean;
+  attemptsCount?: number;
 }
 
 export interface GameResultProps {
   result: 'win' | 'loss' | '';
   count?: number;
   answer?: string;
-  ref?: HTMLElement
+  ref?: HTMLElement;
+  setGameResult?: Dispatch<SetStateAction<"" | "win" | "loss">>
 }
+
+
+export type GameMode = '' | 'train' | 'challenge';
+export type GameResult = 'loss' | 'win' | '';

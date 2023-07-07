@@ -20,6 +20,15 @@ const theme = createTheme({
       main: '#212121',
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 320,
+      md: 600,
+      lg: 960,
+      xl: 1280,
+    },
+  },
 });
 
 const router = createBrowserRouter([

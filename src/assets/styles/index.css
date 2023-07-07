@@ -24,9 +24,9 @@
 
 #root {
   font-family: 'Tinkoff Sans';
-  background: #212121;
+  /* background: #212121;
   background-image: linear-gradient(to right, #212121c0 0% 100%), url(../../assets/images/pattern-1.svg);
-  color: #fff;
+  color: #fff; */
 }
 
 ::-webkit-scrollbar {

@@ -51,8 +51,8 @@ export const ResultsPage = () => {
         justifyContent: 'start',
         gap: '12px',
         py: '12px',
-        height: { sm: 'calc(100vh - 72px - 24px)', xs: 'calc(100vh - 48px - 24px)' },
-        minWidth: { sm: '548px', xs: '100vw' },
+        height: { xs: 'calc(100vh - 48px - 24px)', sm: 'calc(100vh - 64px - 24px)', md: 'calc(100vh - 72px - 24px)' },
+        minWidth: { xs: '100vw', sm: '320px', md: '548px' },
       }}
     >
       <Modal
@@ -71,12 +71,12 @@ export const ResultsPage = () => {
             sx={{
               background: '#272727',
               display: 'flex',
-              flexDirection: { sm: 'row', xs: 'column' },
+              flexDirection: { xs: 'column', sm: 'column', md: 'row' },
               boxShadow: '4',
-              alignItems: { sm: 'center', xs: 'start' },
+              alignItems: 'start',
               justifyContent: 'start',
-              p: { sm: 2, xs: 1 },
-              gap: { sm: 2, xs: 0 },
+              p: { xs: 1, sm: 1, md: 2 },
+              gap: { xs: 0, sm: 0, md: 2 },
               overflow: 'hidden',
             }}
           >
@@ -87,18 +87,16 @@ export const ResultsPage = () => {
                 src={result.photoURL || avatarJpg}
               />
               <Box>
-                <Typography sx={{ fontSize: { sm: 20, xs: 16 }, textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {result.name}
-                </Typography>
+                <Typography sx={{ fontSize: { sm: 20, xs: 16 } }}>{result.name}</Typography>
                 <Typography
                   sx={{ fontSize: { sm: 16, xs: 12 }, opacity: 0.5, textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 >{`Колличество попыток: ${result.attempts.length}`}</Typography>
               </Box>
             </Box>
-
             <Button
-              sx={{ margin: { sm: 2, xs: 0 }, alignSelf: { sm: 'center', xs: 'end' } }}
+              sx={{ margin: { xs: 0, sm: 0, lg: 2 }, alignSelf: { xs: 'end', sm: 'end', md: 'center' } }}
               onClick={() => user && setShowResult(result.uid)}
+              disabled={!user}
             >
               Посмотреть
             </Button>
@@ -110,6 +108,7 @@ export const ResultsPage = () => {
             .filter((res) => res.uid === showResult)
             .map((res) => (
               <GameField
+                key={res.uid}
                 attemptsArray={[...res.attempts, ...new Array(6 - res.attempts.length).fill('     ')]}
                 attemptsColors={res.attemptsColors}
               />

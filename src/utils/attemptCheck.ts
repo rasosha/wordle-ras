@@ -1,6 +1,6 @@
 const attemptCheck = (attempt: string, answer: string) => {
-  const attemptArr = attempt.toLowerCase().split('')
-  const answerArr = answer.toLowerCase().split('')
+  const attemptArr = attempt.split('')
+  const answerArr = answer.split('')
   const green = [];
   const yellow = [];
   const black = [];

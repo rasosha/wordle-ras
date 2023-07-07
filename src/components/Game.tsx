@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { doesWordExists } from '../utils/wordsCheck';
 import attemptCheck from '../utils/attemptCheck';
-import Keyboard from './Keyboard';
+import { Keyboard } from './Keyboard';
 import { auth, getAttempts, getWordOfTheDay, sendAttempt } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import formatData from '../utils/formatData';
@@ -80,7 +80,7 @@ export const Game = ({ gameMode }: GameProps) => {
       setGreenKeys(new Set([...greenKeys, ...check.colors.green]));
       setYellowKeys(new Set([...yellowKeys, ...check.colors.yellow]));
       setBlackKeys(new Set([...blackKeys, ...check.colors.black]));
-      setAttempts([...attempts, check.attempt.word.toUpperCase()]);
+      setAttempts([...attempts, check.attempt.word]);
       setAttemptsColors([...attemptsColors, check.attempt.check.join('')]);
       setInputValue('');
       if (gameMode === 'challenge') {
@@ -89,7 +89,7 @@ export const Game = ({ gameMode }: GameProps) => {
           sendAttempt(
             user.uid,
             date,
-            [...attempts, check.attempt.word.toUpperCase()],
+            [...attempts, check.attempt.word],
             [...attemptsColors, check.attempt.check.join('')],
             {
               greenSet: new Set([...greenKeys, ...check.colors.green]),
@@ -106,7 +106,7 @@ export const Game = ({ gameMode }: GameProps) => {
       setIsError(true);
       setTimeout(() => {
         setIsError(false);
-      }, 500);
+      }, 800);
     }
   };
 
@@ -126,7 +126,7 @@ export const Game = ({ gameMode }: GameProps) => {
   }, [user, gameMode]);
 
   useEffect(() => {
-    if (attempts.includes(answer.toUpperCase())) {
+    if (attempts.includes(answer)) {
       console.log('endgame :>> ');
       setTimeout(() => {
         setGameResult('win');
@@ -142,31 +142,46 @@ export const Game = ({ gameMode }: GameProps) => {
     attempts.length < 6 ? [...attempts, inputValue.padEnd(5), ...new Array(5 - attempts.length).fill('     ')] : [...attempts];
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: { xs: 'space-between', sm: 'space-between', md: 'center' },
+        minHeight: {
+          xs: 'calc(100vh - 12px - 12px - 48px)',
+          sm: 'calc(100vh - 24px - 24px - 64px)',
+          md: 'calc(100vh - 48px - 48px - 72px)',
+        },
+        py: { xs: '12px', sm: '24px', md: '48px' },
+        gap: { xs: '12px', sm: '24px', md: '48px' },
+      }}
+    >
       <Modal
-        open={isLoading || loading}
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', outline: 0 }}
+        open={isLoading || loading || !!gameResult}
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', outline: 'none', backdropFilter: 'blur(4px)' }}
       >
-        <CircularProgress
-          color="primary"
-          sx={{ outline: 0 }}
-        />
-      </Modal>
-      <Modal
-        open={!!gameResult}
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', outline: 0 }}
-      >
-        <Box>
-          <GameResult
-            result={gameResult}
-            count={attempts.length}
-            answer={answer}
-          />
+        <Box sx={{ outline: 'none' }}>
+          {(isLoading || loading) && (
+            <CircularProgress
+              color="primary"
+              sx={{ outline: 'none' }}
+            />
+          )}
+          {!!gameResult && !(isLoading || loading) && (
+            <GameResult
+              result={gameResult}
+              count={attempts.length}
+              answer={answer}
+              setGameResult={setGameResult}
+            />
+          )}
         </Box>
       </Modal>
+
       <GameField
         attemptsArray={attemptsArray}
         attemptsColors={attemptsColors}
+        attemptsCount={attempts.length}
         isError={isError}
         animate={true}
       />
@@ -179,7 +194,7 @@ export const Game = ({ gameMode }: GameProps) => {
           yellowSet: yellowKeys,
           blackSet: blackKeys,
         }}
-        disabled={isError || attempts.length === 6 || !!gameResult}
+        disabled={isError || attempts.length === 6 || !!gameResult || attempts.includes(answer)}
       />
     </Box>
   );

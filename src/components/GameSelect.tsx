@@ -14,7 +14,13 @@ export const GameSelect = () => {
     <CircularProgress color="primary" />
   ) : (
     <Box
-      sx={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: { sm: '350px', xs: '200px' }, padding: '12px' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        maxWidth: { sm: '350px', xs: '200px' },
+        padding: '12px',
+      }}
     >
       <Card sx={{ background: '#272727' }}>
         <CardMedia

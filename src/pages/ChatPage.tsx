@@ -52,14 +52,16 @@ export const ChatPage = () => {
 
   return (
     <Box
+      component={'main'}
       sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '12px',
-        height: { sm: 'calc(100vh - 72px)', xs: 'calc(100vh - 48px)' },
-        minWidth: { sm: '548px', xs: '100vw' },
+        pb: '24px',
+        height: { xs: 'calc(100vh - 48px - 24px)', sm: 'calc(100vh - 64px - 24px)', md: 'calc(100vh - 72px - 24px)' },
+        width: { xs: '100%', sm: '100%', md: '600px' },
       }}
     >
       <Modal

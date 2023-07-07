@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -7,16 +6,15 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Button, Typography } from '@mui/material';
 
 const drawerWidth = 240;
 
 export default function PersistentDrawerRight() {
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -26,6 +24,7 @@ export default function PersistentDrawerRight() {
         color="primary"
         edge="end"
         onClick={() => setOpen(true)}
+        sx={{ width: 54, height: 54 }}
       >
         <MenuIcon />
       </IconButton>
@@ -45,16 +44,28 @@ export default function PersistentDrawerRight() {
           },
         }}
       >
-        <IconButton
-          color="primary"
-          sx={{ height: '48px', width: '48px' }}
-          onClick={() => setOpen(false)}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+            height: { xs: '48px', sm: '64px', md: '72px' },
+            pl: 2,
+          }}
         >
-          {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </IconButton>
+          <Button onClick={() => setOpen(false)}>
+            <ChevronLeftIcon />
+            <Typography>Назад</Typography>
+          </Button>
+        </Box>
+
         <Divider />
         <List>
-          <ListItem>
+          <ListItem
+            sx={{
+              display: { xs: 'flex', sm: 'flex', md: 'none' },
+            }}
+          >
             <ListItemButton
               onClick={() => {
                 setOpen(false);
@@ -64,7 +75,11 @@ export default function PersistentDrawerRight() {
               Правила
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          <ListItem
+            sx={{
+              display: { xs: 'flex', sm: 'none', md: 'none' },
+            }}
+          >
             <ListItemButton
               onClick={() => {
                 setOpen(false);
@@ -74,7 +89,11 @@ export default function PersistentDrawerRight() {
               Игра
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          <ListItem
+            sx={{
+              display: { xs: 'flex', sm: 'flex', md: 'none' },
+            }}
+          >
             <ListItemButton
               onClick={() => {
                 setOpen(false);
@@ -84,7 +103,11 @@ export default function PersistentDrawerRight() {
               Чат
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          <ListItem
+            sx={{
+              display: { xs: 'flex', sm: 'none', md: 'none' },
+            }}
+          >
             <ListItemButton
               onClick={() => {
                 setOpen(false);

@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { signOut } from 'firebase/auth';
 import PersistentDrawerRight from './Drawer';
 import CircularProgress from '@mui/material/CircularProgress';
-import avatarJpg from '../../assets/images/avatar.png';
-import logoJpg from '../../assets/images/logo.png';
+import avatarImg from '../../assets/images/avatar.png';
+import logoImg from '../../assets/images/logo.png';
 
 const Header = () => {
   const [user, loading] = useAuthState(auth);
@@ -16,24 +16,24 @@ const Header = () => {
 
   return (
     <AppBar
-      position="static"
+      position="fixed"
       sx={{
         zIndex: 100,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: { sm: '72px', xs: '48px' },
+        height: { xs: '48px', sm: '64px', md: '72px' },
       }}
     >
-      <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
+      <Box sx={{ display: { md: 'none' } }}>
         <PersistentDrawerRight />
       </Box>
-      <Box sx={{ display: { xs: 'none', sm: 'flex', filter: 'invert()' } }}>
+      <Box sx={{ display: { sm: 'none', xs: 'none', md: 'flex' }, filter: 'invert()' }}>
         <Avatar
-          sx={{ mx: '12px', width: { sm: 48, xs: 36 }, height: { sm: 48, xs: 36 } }}
+          sx={{ mx: '12px', width: 54, height: 54 }}
           alt="logo"
-          src={logoJpg}
+          src={logoImg}
         />
       </Box>
       <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' }, gap: '6px', justifyContent: 'center' }}>
@@ -41,6 +41,9 @@ const Header = () => {
           onClick={() => navigate('/')}
           variant="text"
           color="inherit"
+          sx={{
+            display: { sm: 'none', md: 'flex' },
+          }}
         >
           Правила
         </Button>
@@ -55,6 +58,9 @@ const Header = () => {
           onClick={() => navigate('chat')}
           variant="text"
           color="inherit"
+          sx={{
+            display: { sm: 'none', md: 'flex' },
+          }}
         >
           Чат
         </Button>
@@ -79,12 +85,12 @@ const Header = () => {
               <Avatar
                 sx={{ width: { sm: 48, xs: 36 }, height: { sm: 48, xs: 36 } }}
                 alt="user"
-                src={user?.photoURL || avatarJpg}
+                src={user?.photoURL || avatarImg}
               />
             </IconButton>
             <Menu
               elevation={10}
-              sx={{ mt: { sm: '64px', xs: '36px' } }}
+              sx={{ mt: { xs: '48px', sm: '64px', md: '72px' } }}
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -122,6 +128,7 @@ const Header = () => {
             onClick={signInWithGoogle}
             variant="contained"
             color="primary"
+            sx={{ mr: '12px' }}
           >
             Войти
           </Button>

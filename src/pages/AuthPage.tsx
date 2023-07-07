@@ -9,12 +9,12 @@ export const AuthPage = () => {
 
   return (
     <Box
+      component={'main'}
       sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         gap: '12px',
-      
       }}
     >
       {loading && <CircularProgress color="primary" />}
