@@ -29,7 +29,7 @@ export const Game = ({ gameMode }: GameProps) => {
   const [isError, setIsError] = useState(false);
   const [gameResult, setGameResult] = useState<'win' | 'loss' | ''>('');
   const [user, loading] = useAuthState(auth);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(gameMode === 'train' ? false : true);
 
   const getAnswer = async () => {
     if (gameMode === 'challenge') {
@@ -154,25 +154,26 @@ export const Game = ({ gameMode }: GameProps) => {
       }}
     >
       <Modal
-        open={!!gameResult}
+        open={!!gameResult || isLoading || loading}
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', outline: 'none', backdropFilter: 'blur(4px)' }}
       >
-        <Box>
-          <GameResult
-            result={gameResult}
-            count={attempts.length}
-            answer={answer}
-            setGameResult={setGameResult}
-          />
+        <Box sx={{ outline: 'none' }}>
+          {!!gameResult && (
+            <GameResult
+              result={gameResult}
+              count={attempts.length}
+              answer={answer}
+              setGameResult={setGameResult}
+            />
+          )}
+          {(isLoading || loading) && (
+            <CircularProgress
+              color="primary"
+              sx={{ outline: 'none' }}
+            />
+          )}
         </Box>
       </Modal>
-
-      {(isLoading || loading) && (
-        <CircularProgress
-          color="primary"
-          sx={{ outline: 'none' }}
-        />
-      )}
 
       {!(isLoading || loading) && (
         <>

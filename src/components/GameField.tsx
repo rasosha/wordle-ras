@@ -75,7 +75,7 @@ export const GameField = ({
             const chooseAnimation = () => {
               if (animate) {
                 if (color) {
-                  return `${Flip} 0.8s 1 ease-in-out ${0.4 * letterIndex}s`;
+                  return `${Flip} 0.8s ease-in-out ${0.4 * letterIndex}s`;
                 } else if (isError && wordIndex === attemptsCount) {
                   return `${Err} 0.8s ease-in-out`;
                 } else return 'none';
