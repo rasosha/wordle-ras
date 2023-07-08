@@ -23,14 +23,12 @@ export const ResultsPage = () => {
   const [isAvailable, setAvailable] = useState(false);
 
   useEffect(() => {
-    results.map((userResult) => {
-      if (userResult.uid === user?.uid) {
-        setAvailable(true);
-      } else {
-        setAvailable(false);
-      }
-    });
-  }, [results, user?.uid]);
+    if (results.find((userResult) => userResult.uid === user?.uid)) {
+      setAvailable(true);
+    } else {
+      setAvailable(false);
+    }
+  }, [results, user]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -62,7 +60,7 @@ export const ResultsPage = () => {
         justifyContent: 'start',
         gap: '12px',
         py: '12px',
-        height: { xs: 'calc(100vh - 48px - 24px)', sm: 'calc(100vh - 64px - 24px)', md: 'calc(100vh - 72px - 24px)' },
+        minHeight: { xs: 'calc(100vh - 48px - 24px)', sm: 'calc(100vh - 64px - 24px)', md: 'calc(100vh - 72px - 24px)' },
         minWidth: { xs: '100vw', sm: '320px', md: '548px' },
       }}
     >

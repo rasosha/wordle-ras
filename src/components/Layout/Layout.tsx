@@ -20,6 +20,7 @@ export const Layout = () => {
             sm: 'calc(100vh - 64px)',
             md: 'calc(100vh - 72px)',
           },
+          height: '100%',
           color: 'white',
           background: '#212121',
           backgroundImage: `linear-gradient(to right, #212121c0 0% 100%), url(${background})`,

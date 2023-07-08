@@ -151,6 +151,7 @@ export const Game = ({ gameMode }: GameProps) => {
         py: { xs: '12px', sm: '24px', md: '24px' },
         gap: { xs: '12px', sm: '24px', md: '24px' },
         position: 'relative',
+        userSelect: 'none',
       }}
     >
       <Modal

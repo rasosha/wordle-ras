@@ -134,6 +134,7 @@ export const ChatPage = () => {
             onChange={handleInput}
             type="text"
             value={inputValue}
+            sx={{ px: 1 }}
           />
           <IconButton
             sx={{ padding: '12px', transition: 'all 1s', display: inputValue ? 'flex' : 'none' }}
