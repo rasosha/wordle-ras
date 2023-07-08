@@ -18,7 +18,7 @@ export const GameSelect = () => {
         display: 'flex',
         flexDirection: 'column',
         gap: '12px',
-        maxWidth: { sm: '350px', xs: '200px' },
+        maxWidth: { xs: '200px', sm: '350px', md: '600px' },
         padding: '12px',
       }}
     >
@@ -27,24 +27,26 @@ export const GameSelect = () => {
           component="img"
           image={challengeJpg}
           alt="challenge"
-          sx={{ height: { sm: '200px', xs: '100px' } }}
+          sx={{ height: { xs: '100px', sm: '150px', md: '200px' } }}
         />
-        <CardContent>
+        <CardContent sx={{ padding: { xs: 1, sm: 1, md: 2 } }}>
           <Typography
             gutterBottom
             variant="h5"
             component="div"
+            sx={{ fontSize: { xs: '16px', sm: '20px', md: '24px' } }}
           >
             Соревнование
           </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
+            sx={{ fontSize: { xs: '12px', sm: '14px', md: '16px' } }}
           >
             {user ? 'Одно слово для всех. Обновляется раз в день.' : 'Доступно только для авторизованных пользователей.'}
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ padding: { xs: 0, sm: 1, md: 1 } }}>
           {user ? (
             <Button onClick={() => navigate('/game/challenge')}>Играть</Button>
           ) : (
@@ -58,24 +60,26 @@ export const GameSelect = () => {
           component="img"
           image={trainJpg}
           alt="train"
-          sx={{ height: { sm: '200px', xs: '100px' } }}
+          sx={{ height: { xs: '100px', sm: '150px', md: '200px' } }}
         />
-        <CardContent>
+        <CardContent sx={{ padding: { xs: 1, sm: 1, md: 2 } }}>
           <Typography
             gutterBottom
             variant="h5"
             component="div"
+            sx={{ fontSize: { xs: '16px', sm: '20px', md: '24px' } }}
           >
             Тренировка
           </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
+            sx={{ fontSize: { xs: '12px', sm: '14px', md: '16px' } }}
           >
             Количество игр неограничено.
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ padding: { xs: 0, sm: 1, md: 1 } }}>
           <Button onClick={() => navigate('/game/train')}>Играть</Button>
         </CardActions>
       </Card>

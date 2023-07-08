@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { GameResult } from './GameResult';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box, Modal } from '@mui/material';
+import Countdown from './Countdown';
 
 interface GameProps {
   gameMode: 'train' | 'challenge';
@@ -77,12 +78,14 @@ export const Game = ({ gameMode }: GameProps) => {
   const submitAttempt = (word: string) => {
     if (doesWordExists(word)) {
       const check = attemptCheck(word, answer);
+      const newAttempts = [...attempts, check.attempt.word];
+      setAttempts(newAttempts);
       setGreenKeys(new Set([...greenKeys, ...check.colors.green]));
       setYellowKeys(new Set([...yellowKeys, ...check.colors.yellow]));
       setBlackKeys(new Set([...blackKeys, ...check.colors.black]));
-      setAttempts([...attempts, check.attempt.word]);
       setAttemptsColors([...attemptsColors, check.attempt.check.join('')]);
       setInputValue('');
+
       if (gameMode === 'challenge') {
         const date = formatData('date', Date.now());
         if (user && date) {
@@ -100,6 +103,16 @@ export const Game = ({ gameMode }: GameProps) => {
             user.photoURL || './default.png',
           );
         }
+      }
+      if (newAttempts.includes(answer)) {
+        console.log('endgame :>> ');
+        setTimeout(() => {
+          setGameResult('win');
+        }, 2400);
+      } else if (newAttempts.length === 6) {
+        setTimeout(() => {
+          setGameResult('loss');
+        }, 2400);
       }
     } else {
       console.log(`${word} does not exist, try another`);
@@ -125,19 +138,6 @@ export const Game = ({ gameMode }: GameProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, gameMode]);
 
-  useEffect(() => {
-    if (attempts.includes(answer)) {
-      console.log('endgame :>> ');
-      setTimeout(() => {
-        setGameResult('win');
-      }, 2400);
-    } else if (attempts.length === 6) {
-      setTimeout(() => {
-        setGameResult('loss');
-      }, 2400);
-    }
-  }, [attempts, answer]);
-
   const attemptsArray =
     attempts.length < 6 ? [...attempts, inputValue.padEnd(5), ...new Array(5 - attempts.length).fill('     ')] : [...attempts];
 
@@ -146,56 +146,60 @@ export const Game = ({ gameMode }: GameProps) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: { xs: 'space-between', sm: 'space-between', md: 'center' },
-        minHeight: {
-          xs: 'calc(100vh - 12px - 12px - 48px)',
-          sm: 'calc(100vh - 24px - 24px - 64px)',
-          md: 'calc(100vh - 48px - 48px - 72px)',
-        },
-        py: { xs: '12px', sm: '24px', md: '48px' },
-        gap: { xs: '12px', sm: '24px', md: '48px' },
+        justifyContent: { xs: 'start', sm: 'start', md: 'center' },
+        alignItems: 'center',
+        py: { xs: '12px', sm: '24px', md: '24px' },
+        gap: { xs: '12px', sm: '24px', md: '24px' },
+        position: 'relative',
       }}
     >
       <Modal
-        open={isLoading || loading || !!gameResult}
+        open={!!gameResult}
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', outline: 'none', backdropFilter: 'blur(4px)' }}
       >
-        <Box sx={{ outline: 'none' }}>
-          {(isLoading || loading) && (
-            <CircularProgress
-              color="primary"
-              sx={{ outline: 'none' }}
-            />
-          )}
-          {!!gameResult && !(isLoading || loading) && (
-            <GameResult
-              result={gameResult}
-              count={attempts.length}
-              answer={answer}
-              setGameResult={setGameResult}
-            />
-          )}
+        <Box>
+          <GameResult
+            result={gameResult}
+            count={attempts.length}
+            answer={answer}
+            setGameResult={setGameResult}
+          />
         </Box>
       </Modal>
 
-      <GameField
-        attemptsArray={attemptsArray}
-        attemptsColors={attemptsColors}
-        attemptsCount={attempts.length}
-        isError={isError}
-        animate={true}
-      />
-      <Keyboard
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        submitAttempt={submitAttempt}
-        charColors={{
-          greenSet: greenKeys,
-          yellowSet: yellowKeys,
-          blackSet: blackKeys,
-        }}
-        disabled={isError || attempts.length === 6 || !!gameResult || attempts.includes(answer)}
-      />
+      {(isLoading || loading) && (
+        <CircularProgress
+          color="primary"
+          sx={{ outline: 'none' }}
+        />
+      )}
+
+      {!(isLoading || loading) && (
+        <>
+          <GameField
+            attemptsArray={attemptsArray}
+            attemptsColors={attemptsColors}
+            attemptsCount={attempts.length}
+            isError={isError}
+            animate={true}
+          />
+          {gameMode === 'challenge' && (attempts.length === 6 || !!gameResult || attempts.includes(answer)) ? (
+            <Countdown targetDate={new Date()} />
+          ) : (
+            <Keyboard
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              submitAttempt={submitAttempt}
+              charColors={{
+                greenSet: greenKeys,
+                yellowSet: yellowKeys,
+                blackSet: blackKeys,
+              }}
+              disabled={isError || attempts.length === 6 || !!gameResult || attempts.includes(answer)}
+            />
+          )}
+        </>
+      )}
     </Box>
   );
 };

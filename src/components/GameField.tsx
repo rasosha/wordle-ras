@@ -51,12 +51,12 @@ export const GameField = ({
     <Box
       component={'section'}
       sx={{
+        position: 'relative',
         display: 'flex',
-        gap: '12px',
+        gap: { xs: '6px', sm: '6px', md: '12px' },
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
       }}
     >
       {attemptsArray.map((word: string, wordIndex: number) => (
@@ -67,10 +67,7 @@ export const GameField = ({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '12px',
-            width: { xs: '100vw', sm: '100vw', md: '600px' },
-            height: '20vw',
-            maxHeight: { xs: '32px', sm: '48px', md: '64px' },
+            gap: { xs: '6px', sm: '6px', md: '12px' },
           }}
         >
           {word.split('').map((letter: string, letterIndex: number) => {
@@ -78,7 +75,7 @@ export const GameField = ({
             const chooseAnimation = () => {
               if (animate) {
                 if (color) {
-                  return `${Flip} 0.8s 1 ease ${0.4 * letterIndex}s`;
+                  return `${Flip} 0.8s 1 ease-in-out ${0.4 * letterIndex}s`;
                 } else if (isError && wordIndex === attemptsCount) {
                   return `${Err} 0.8s ease-in-out`;
                 } else return 'none';
@@ -96,13 +93,11 @@ export const GameField = ({
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: '12px',
-                  minWidth: { xs: '32px', sm: '48px', md: '64px' },
-                  minHeight: { xs: '32px', sm: '48px', md: '64px' },
-                  maxWidth: { xs: '32px', sm: '48px', md: '64px' },
-                  maxHeight: { xs: '32px', sm: '48px', md: '64px' },
-                  width: '15%',
-                  height: '15%',
+                  borderRadius: { xs: '6px', sm: '10px', md: '12px' },
+                  maxWidth: '72px',
+                  maxHeight: '72px',
+                  width: 'calc(100vw / 5 - 12px)',
+                  height: 'calc(100vw / 5 - 12px)',
                   fontSize: { xs: '20px', sm: '24px', md: '32px' },
                   animation: chooseAnimation(),
                   transition: `0.8s ${0.4 * letterIndex}s`,

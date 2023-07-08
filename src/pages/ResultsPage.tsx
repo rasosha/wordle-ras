@@ -20,6 +20,17 @@ export const ResultsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<IResults[]>([]);
   const [showResult, setShowResult] = useState<string>('');
+  const [isAvailable, setAvailable] = useState(false);
+
+  useEffect(() => {
+    results.map((userResult) => {
+      if (userResult.uid === user?.uid) {
+        setAvailable(true);
+      } else {
+        setAvailable(false);
+      }
+    });
+  }, [results, user?.uid]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -90,13 +101,13 @@ export const ResultsPage = () => {
                 <Typography sx={{ fontSize: { sm: 20, xs: 16 } }}>{result.name}</Typography>
                 <Typography
                   sx={{ fontSize: { sm: 16, xs: 12 }, opacity: 0.5, textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-                >{`Колличество попыток: ${result.attempts.length}`}</Typography>
+                >{`Количество попыток: ${result.attempts.length}`}</Typography>
               </Box>
             </Box>
             <Button
               sx={{ margin: { xs: 0, sm: 0, lg: 2 }, alignSelf: { xs: 'end', sm: 'end', md: 'center' } }}
               onClick={() => user && setShowResult(result.uid)}
-              disabled={!user}
+              disabled={!user || !isAvailable}
             >
               Посмотреть
             </Button>

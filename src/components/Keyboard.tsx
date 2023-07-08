@@ -53,13 +53,16 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
       component={'section'}
       maxWidth="sm"
       sx={{
+        flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'start',
         gap: '12px',
         maxWidth: '600px',
+        height: '25vh',
         width: { xs: '100vw', sm: '100vw', md: '600px' },
+        position: 'relative',
       }}
     >
       <Box
@@ -85,6 +88,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
                 backgroundColor: getColor('bg', char),
                 color: getColor('color', char),
                 border: getColor('border', char),
+                transition: 'all 3s',
                 '&:disabled': {
                   backgroundColor: `${getColor('bg', char)}cc`,
                   color: `${getColor('color', char)}cc`,
@@ -125,6 +129,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
                 backgroundColor: getColor('bg', char),
                 color: getColor('color', char),
                 border: getColor('border', char),
+                transition: 'all 3s',
                 '&:disabled': {
                   backgroundColor: `${getColor('bg', char)}cc`,
                   color: `${getColor('color', char)}cc`,
@@ -192,6 +197,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
                 backgroundColor: getColor('bg', char),
                 color: getColor('color', char),
                 border: getColor('border', char),
+                transition: 'all 3s',
                 '&:disabled': {
                   backgroundColor: `${getColor('bg', char)}cc`,
                   color: `${getColor('color', char)}cc`,

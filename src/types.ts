@@ -18,7 +18,7 @@ export interface KeyboardProps {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   submitAttempt: (inputValue: string) => void;
   charColors: ColorSets;
-  disabled: boolean
+  disabled: boolean;
 }
 
 export interface GameFieldProps {

@@ -15,6 +15,7 @@ export const AuthPage = () => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: '12px',
+        margin: 'auto',
       }}
     >
       {loading && <CircularProgress color="primary" />}
