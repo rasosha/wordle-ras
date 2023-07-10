@@ -11,7 +11,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       const currentTime = new Date().getTime();
-      const nextDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate() + 1);
+      const nextDay = new Date(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate() + 1);
       const difference = nextDay.getTime() - currentTime;
       setRemainingTime(difference);
     }, 1000);
