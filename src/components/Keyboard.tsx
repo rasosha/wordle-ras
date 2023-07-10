@@ -63,6 +63,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
         height: '25vh',
         width: { xs: '100vw', sm: '100vw', md: '600px' },
         position: 'relative',
+        cursor: 'pointer',
       }}
     >
       <Box
@@ -79,7 +80,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
               variant="outlined"
               key={index}
               disabled={inputValue.length === 5 || disabled}
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
+              onClick={() => handleClick(char)}
               sx={{
                 p: 0,
                 m: 0,
@@ -88,6 +89,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
                 backgroundColor: getColor('bg', char),
                 color: getColor('color', char),
                 border: getColor('border', char),
+                cursor: 'pointer',
                 transition: 'all 3s',
                 '&:disabled': {
                   backgroundColor: `${getColor('bg', char)}cc`,
@@ -120,7 +122,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
               variant="outlined"
               key={index}
               disabled={inputValue.length === 5 || disabled}
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
+              onClick={() => handleClick(char)}
               sx={{
                 p: 0,
                 m: 0,
@@ -129,6 +131,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
                 backgroundColor: getColor('bg', char),
                 color: getColor('color', char),
                 border: getColor('border', char),
+                cursor: 'pointer',
                 transition: 'all 3s',
                 '&:disabled': {
                   backgroundColor: `${getColor('bg', char)}cc`,
@@ -159,7 +162,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
           variant="outlined"
           color="secondary"
           disabled={inputValue.length !== 5 || disabled}
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
+          onClick={() => handleClick(letters[3])}
           sx={{
             p: 0,
             m: 0,
@@ -188,7 +191,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
               variant="outlined"
               key={index}
               disabled={inputValue.length === 5 || disabled}
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
+              onClick={() => handleClick(char)}
               sx={{
                 p: 0,
                 m: 0,
@@ -197,6 +200,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
                 backgroundColor: getColor('bg', char),
                 color: getColor('color', char),
                 border: getColor('border', char),
+                cursor: 'pointer',
                 transition: 'all 3s',
                 '&:disabled': {
                   backgroundColor: `${getColor('bg', char)}cc`,
@@ -217,7 +221,7 @@ export const Keyboard = ({ inputValue, setInputValue, submitAttempt, charColors,
         <Button
           variant="outlined"
           disabled={inputValue.length === 0 || disabled}
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick((e.target as HTMLElement).innerText)}
+          onClick={() => handleClick(letters[4])}
           sx={{
             p: 0,
             m: 0,
