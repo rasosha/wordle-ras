@@ -1,33 +1,28 @@
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import formatData from '../utils/formatData';
+import { useNavigate } from 'react-router-dom';
 
-interface CountdownProps {
-  targetDate: Date;
-}
-
-const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
+const Countdown = () => {
   const [remainingTime, setRemainingTime] = useState<number>(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const currentTime = new Date().getTime();
-      const nextDay = new Date(targetDate.getUTCFullYear(), targetDate.getUTCMonth(), targetDate.getUTCDate() + 1);
-      const difference = nextDay.getTime() - currentTime;
+      const current = new Date(new Date().toUTCString().slice(0, -4));
+      const nextDay = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
+      const difference = nextDay.getTime() - +current;
+      if (difference === 0) {
+        navigate('/game');
+      }
+      console.log('current :>> ', current);
+      console.log('difference :>> ', difference);
       setRemainingTime(difference);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [targetDate]);
-
-  const formatTime = (time: number): string => {
-    const hours = Math.floor(time / (1000 * 60 * 60));
-    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((time % (1000 * 60)) / 1000);
-
-    return `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds
-      .toString()
-      .padStart(2, '0')}`;
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box
@@ -60,7 +55,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
         }}
       >
         <Typography>Новое слово через:</Typography>
-        <Typography sx={{ fontSize: '24px' }}>{formatTime(remainingTime)}</Typography>
+        <Typography sx={{ fontSize: '24px' }}>{formatData('time', remainingTime)}</Typography>
       </Box>
     </Box>
   );

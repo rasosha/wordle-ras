@@ -44,7 +44,7 @@ export const Game = ({ gameMode }: GameProps) => {
       const answer = getRandomWord();
       console.log('answer :>> ', answer);
       return answer;
-    } else return '';
+    } else return 'error';
   };
 
   const startGame = async () => {
@@ -136,7 +136,7 @@ export const Game = ({ gameMode }: GameProps) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, gameMode]);
+  }, [user, gameMode, loading]);
 
   const attemptsArray =
     attempts.length < 6 ? [...attempts, inputValue.padEnd(5), ...new Array(5 - attempts.length).fill('     ')] : [...attempts];
@@ -186,7 +186,7 @@ export const Game = ({ gameMode }: GameProps) => {
             animate={true}
           />
           {gameMode === 'challenge' && (attempts.length === 6 || !!gameResult || attempts.includes(answer)) ? (
-            <Countdown targetDate={new Date()} />
+            <Countdown />
           ) : (
             <Keyboard
               inputValue={inputValue}
