@@ -1,6 +1,6 @@
 import { auth, getResults } from '../firebase';
 import { useEffect, useState } from 'react';
-import formatData from '../utils/formatData';
+import formatData from '../utils/formatUTC';
 import { GameField } from '../components/GameField';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Avatar, Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
@@ -32,7 +32,7 @@ export const ResultsPage = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      const date = formatData('date', Date.now());
+      const date = formatData(new Date(), 'date');
       const att = async () => {
         if (date) {
           setIsLoading(true);

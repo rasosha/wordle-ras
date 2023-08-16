@@ -1,11 +1,18 @@
 import { FirebaseError, initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-} from 'firebase/auth';
-import { getFirestore, collection, getDocs, query, where, setDoc, doc, limit, orderBy, getDoc, updateDoc } from 'firebase/firestore';
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+  setDoc,
+  doc,
+  limit,
+  orderBy,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { ColorSets, IMessage } from './types';
 import { IResults } from './pages/ResultsPage';
 import { getRandomWord } from './utils/wordsList';
@@ -28,13 +35,13 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const q = query(collection(db, 'users'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await setDoc(doc(db, "users", user.uid), {
+      await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
-        authProvider: "google",
+        authProvider: 'google',
         email: user.email,
         image: user.photoURL,
       });
@@ -45,25 +52,25 @@ const signInWithGoogle = async () => {
 };
 
 const getUserInfo = async (uid: string) => {
-  const user = await getDoc(doc(db, "users", uid));
-  return (user.data())
-}
+  const user = await getDoc(doc(db, 'users', uid));
+  return user.data();
+};
 
 const sendMessage = async (uid: string, message: string, name: string, photoURL: string) => {
-  await setDoc(doc(db, "chat", Date.now().toString()), {
+  await setDoc(doc(db, 'chat', Date.now().toString()), {
     uid,
     message,
     name,
     photoURL,
-    createdAt: Date.now()
+    createdAt: Date.now(),
   });
-}
+};
 
 const getMessages = async (chat: string) => {
-  const q = query(collection(db, chat), orderBy('createdAt', 'desc'), limit(25))
+  const q = query(collection(db, chat), orderBy('createdAt', 'desc'), limit(25));
   const querySnapshot = await getDocs(q);
-  return (querySnapshot.docs.map((docs) => docs.data()) as IMessage[])
-}
+  return querySnapshot.docs.map((docs) => docs.data()) as IMessage[];
+};
 
 const logout = () => {
   try {
@@ -79,24 +86,31 @@ const handleError = (err: FirebaseError) => {
 };
 
 const getWordOfTheDay = async (date: string) => {
-  const docRef = doc(db, "words", date);
+  const docRef = doc(db, 'words', date);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return docSnap.data().answer as string;
   } else {
-    const word = getRandomWord()
-    await setDoc(doc(db, "words", date), {
+    const word = getRandomWord();
+    await setDoc(doc(db, 'words', date), {
       answer: word,
       date: date,
-    })
-    console.log(word, 'added', date)
-    return word
+    });
+    console.log(word, 'added', date);
+    return word;
   }
-}
+};
 
-
-const sendAttempt = async (uid: string, date: string, attempts: string[], attemptsColors: string[], charColors: ColorSets, name: string, photoURL: string) => {
-  await setDoc(doc(db, "words", date, 'users', uid,), {
+const sendAttempt = async (
+  uid: string,
+  date: string,
+  attempts: string[],
+  attemptsColors: string[],
+  charColors: ColorSets,
+  name: string,
+  photoURL: string,
+) => {
+  await setDoc(doc(db, 'words', date, 'users', uid), {
     uid,
     date,
     attempts,
@@ -109,35 +123,32 @@ const sendAttempt = async (uid: string, date: string, attempts: string[], attemp
     name,
     photoURL,
   });
-}
+};
 
 const getAttempts = async (date: string, uid: string) => {
-  const q = query(collection(db, "words", date, 'users'), where("uid", "==", uid));
+  const q = query(collection(db, 'words', date, 'users'), where('uid', '==', uid));
   const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((docs) => docs.data())
+  const data = querySnapshot.docs.map((docs) => docs.data());
   if (data[0]) {
-    return data[0]
-  } else return null
-}
+    return data[0];
+  } else return null;
+};
 
 const getResults = async (date: string) => {
-  const q = query(collection(db, "words", date, 'users'));
+  const q = query(collection(db, 'words', date, 'users'));
   const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((docs) => docs.data())
-  console.log(data)
+  const data = querySnapshot.docs.map((docs) => docs.data());
   if (data) {
-    return data as IResults[]
-  } else return null
-}
-
+    return data as IResults[];
+  } else return null;
+};
 
 const setField = async (date: string, uid: string, field: string, fieldData: string) => {
-  const document = doc(db, "words", date, 'users', uid,)
+  const document = doc(db, 'words', date, 'users', uid);
   await updateDoc(document, {
-    [field]: fieldData
-  })
-}
-
+    [field]: fieldData,
+  });
+};
 
 export {
   auth,

@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import formatData from '../utils/formatData';
+import formatUTC from '../utils/formatUTC';
 import { useNavigate } from 'react-router-dom';
 
 const Countdown = () => {
@@ -15,8 +15,6 @@ const Countdown = () => {
       if (difference === 0) {
         navigate('/game');
       }
-      console.log('current :>> ', current);
-      console.log('difference :>> ', difference);
       setRemainingTime(difference);
     }, 1000);
 
@@ -36,7 +34,7 @@ const Countdown = () => {
         justifyContent: 'start',
         gap: '12px',
         maxWidth: '600px',
-        height: '25vh',
+        height: '25dvh',
         width: { xs: '100vw', sm: '100vw', md: '600px' },
         position: 'relative',
       }}
@@ -55,7 +53,7 @@ const Countdown = () => {
         }}
       >
         <Typography>Новое слово через:</Typography>
-        <Typography sx={{ fontSize: '24px' }}>{formatData('time', remainingTime)}</Typography>
+        <Typography sx={{ fontSize: '24px' }}>{formatUTC(new Date(remainingTime), 'time')}</Typography>
       </Box>
     </Box>
   );

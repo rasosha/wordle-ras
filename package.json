@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.6",
+    "dayjs": "^1.11.9",
     "firebase": "^9.23.0",
     "gh-pages": "^5.0.0",
     "i18next": "^23.2.0",

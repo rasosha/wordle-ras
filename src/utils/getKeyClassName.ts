@@ -1,5 +1,5 @@
 import { ColorSets } from '../types';
-import S from '../components/Keyboard.module.css'
+import S from '../components/Keyboard.module.css';
 
 const getKeyClassName = (charColors: ColorSets, char: string) => {
   if (charColors.greenSet.has(char)) {
@@ -13,4 +13,4 @@ const getKeyClassName = (charColors: ColorSets, char: string) => {
   }
 };
 
-export default getKeyClassName
+export default getKeyClassName;

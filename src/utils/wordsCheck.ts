@@ -5740,7 +5740,7 @@ export const words = [
   'ЯТВЯГ',
   'ЯТОВЬ',
   'ЯХОНТ',
-  'ЯШМАК'
+  'ЯШМАК',
 ];
 
 export const doesWordExists = (w: string) => words.includes(w.toUpperCase());

@@ -34,9 +34,8 @@ export interface GameResultProps {
   count?: number;
   answer?: string;
   ref?: HTMLElement;
-  setGameResult?: Dispatch<SetStateAction<"" | "win" | "loss">>
+  setGameResult?: Dispatch<SetStateAction<'' | 'win' | 'loss'>>;
 }
-
 
 export type GameMode = '' | 'train' | 'challenge';
 export type GameResult = 'loss' | 'win' | '';

@@ -4,7 +4,7 @@ import attemptCheck from '../utils/attemptCheck';
 import { Keyboard } from './Keyboard';
 import { auth, getAttempts, getWordOfTheDay, sendAttempt } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import formatData from '../utils/formatData';
+import formatUTC from '../utils/formatUTC';
 import { GameField } from './GameField';
 import { getRandomWord } from '../utils/wordsList';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +34,7 @@ export const Game = ({ gameMode }: GameProps) => {
   const getAnswer = async () => {
     if (gameMode === 'challenge') {
       setIsLoading(true);
-      const answer = await getWordOfTheDay(formatData('date', Date.now())).then((answer) => {
+      const answer = await getWordOfTheDay(formatUTC(new Date(), 'date')).then((answer) => {
         console.log('answer: >>', answer);
         return answer;
       });
@@ -54,7 +54,7 @@ export const Game = ({ gameMode }: GameProps) => {
       const att = async () => {
         if (user) {
           setIsLoading(true);
-          const res = await getAttempts(formatData('date', Date.now()), user.uid);
+          const res = await getAttempts(formatUTC(new Date(), 'date'), user.uid);
           if (res) {
             setAttempts(res.attempts);
             setAttemptsColors(res.attemptsColors);
@@ -87,7 +87,7 @@ export const Game = ({ gameMode }: GameProps) => {
       setInputValue('');
 
       if (gameMode === 'challenge') {
-        const date = formatData('date', Date.now());
+        const date = formatUTC(new Date(), 'date');
         if (user && date) {
           sendAttempt(
             user.uid,

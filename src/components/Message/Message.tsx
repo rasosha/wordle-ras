@@ -2,7 +2,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { IMessage } from '../../types';
 import S from './Message.module.css';
 import { auth } from '../../firebase';
-import formatData from '../../utils/formatData';
+import formatUTC from '../../utils/formatUTC';
+import dayjs from 'dayjs';
 
 const Message = ({ message, name, photoURL, createdAt, uid }: IMessage) => {
   const [user] = useAuthState(auth);
@@ -18,7 +19,7 @@ const Message = ({ message, name, photoURL, createdAt, uid }: IMessage) => {
         <p className={S.name}>{name}</p>
         <div className={S.messageData}>
           <p className={S.messageText}>{message}</p>
-          <p className={S.time}>{createdAt && formatData('time', createdAt)}</p>
+          <p className={S.time}>{createdAt && formatUTC(dayjs(createdAt).toDate(), 'time')}</p>
         </div>
       </div>
     </div>
